@@ -1,0 +1,60 @@
+<div style="padding:30px;">
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="6" style="color: white;">
+      <nz-card nzTitle="" style="background: #f75c5b;" nzHoverable
+               [nzLoading]="loading">
+        <p style="color: white">数据量：</p>
+        <p style="font-size: 4.5em;color: white ">{{ listOfWarnData[0].total }}</p>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="6" style="color: white;">
+      <nz-card nzTitle="" style="background: #ffd05f;" nzHoverable
+               [nzLoading]="loading">
+        <p style="color: white">报警总数：</p>
+        <p style="font-size: 4.5em;color: red">{{ listOfWarnData[0].warnNum }}</p>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="6" style="color: white;">
+      <nz-card nzTitle="" style="background: #8fd965;" nzHoverable
+               [nzLoading]="loading">
+        <p style="color: white">报警占比：</p>
+        <p style="font-size: 4.5em;color: red">{{ listOfWarnData[0].scale }}</p>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="5" *ngFor="let data of listOfWarnData" style="color: white;">
+      <nz-card nzTitle="" style="background: #3283ff" nzHoverable *ngIf="data.type != 'all'" [nzLoading]="loading">
+        <p style="color: white">{{data.type}}：</p>
+        <p style="font-size: 1.5em;color: white">总数：{{data.total}}</p>
+        <p style="font-size: 1.5em;color: red">报警：{{data.warnNum}}</p>
+        <p style="font-size: 1.5em;color: white">占比：{{data.scale}}</p>
+      </nz-card>
+    </div>
+  </div>
+</div>
+<button nz-button nzType="primary" nzSize="small" *ngIf="pageIndex==1" disabled>上一页</button>
+<button nz-button nzType="primary" nzSize="small" *ngIf="pageIndex!=1" (click)="lastPage()">上一页</button>
+<button style="margin-left: 10px" *ngIf="Nomore" disabled nz-button nzSize="small" nzType="primary">
+  下一页
+</button>
+<button style="margin-left: 10px" (click)="nextPage()" *ngIf="!Nomore" nz-button nzSize="small" nzType="primary">下一页
+</button>
+<button style="margin-left: 10px" nz-button nzSize="small" nzType="primary" (click)="getPageData()">刷新</button>
+<nz-table #basicTable style="margin-bottom:20px " [nzLoading]="loading" [nzShowPagination]="false"
+          [nzLoadingDelay]="1500"
+          [nzData]="listOfData">
+  <thead>
+  <tr>
+    <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare">{{
+      column.title }}
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{ data.createTime }}</td>
+    <td *ngIf="data.humidity>30" style="color:red;">{{ data.humidity }}%RH</td>
+    <td *ngIf="data.humidity<=30">{{ data.humidity }}%RH</td>
+    <td>{{data.equipment.name}}</td>
+  </tr>
+  </tbody>
+</nz-table>

@@ -1,0 +1,84 @@
+<button style="margin: 0 1em 0 0" nz-button nzType="default" (click)="addEquipment()" [nzLoading]="loading"><i nz-icon
+                                                                                                               nzType="plus"></i>新增
+</button>
+<button style="margin: 0 1em 0 0" nz-button nzType="primary"
+        (click)="editEquipment()" [nzLoading]="loading"><i nz-icon nzType="edit"></i>编辑
+</button>
+<button style="margin: 0 1em 0 0" nz-button nzType="primary"
+        (click)="changeStatus()" [nzLoading]="loading"><i nz-icon nzType="swap"></i>更改状态
+</button>
+<button style="margin: 0 1em 0 0" nz-button nzType="danger"
+        (click)="deleteEquipment()" [nzLoading]="loading"><i nz-icon
+                                                             nzType="delete"></i>删除
+</button>
+<button style="margin: 0 1em 0 0" nz-button nzType="primary" (click)="getPageData()"
+        [nzLoading]="loading"><i nz-icon nzType="sync"></i>刷新
+</button>
+<nz-table #rowSelectionTable style="margin-bottom:20px " [nzLoading]="loading" [nzShowPagination]="false"
+          [nzLoadingDelay]="1000"
+          [nzData]="listOfData" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+  <thead>
+  <tr>
+    <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+    <th *ngFor="let column of listOfColumn">{{
+      column.title }}
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of rowSelectionTable.data">
+    <td
+      [nzChecked]="setOfCheckedId.has(data.id)"
+      (nzCheckedChange)="onItemChecked(data.id)"
+    ></td>
+    <td>{{ data.name }}</td>
+    <td>{{ data.detail}}</td>
+    <td>
+      <nz-switch [ngModel]="data.status" nzSize="small" disabled [nzLoading]="loading" nzCheckedChildren="开"
+                 nzUnCheckedChildren="关"></nz-switch>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<!--<button nz-button nzType="primary" nzSize="small" *ngIf="pageIndex==1" disabled>上一页</button>-->
+<!--<button nz-button nzType="primary" nzSize="small" *ngIf="pageIndex!=1" (click)="lastPage()">上一页</button>-->
+<!--<button style="margin-left: 10px" *ngIf="Nomore" disabled nz-button nzSize="small" nzType="primary">-->
+<!--下一页-->
+<!--</button>-->
+<!--<button style="margin-left: 10px" (click)="nextPage()" *ngIf="!Nomore" nz-button nzSize="small" nzType="primary">下一页-->
+<!--</button>-->
+<div [hidden]="hiddenMo"
+     style="position: absolute;width: 100%;height: 100%;background-color: #cccccc;opacity: 0.5;top: 0;left: 0;"></div>
+<div [hidden]="hiddenMo"
+     style="position: absolute;top: 30%;left: 30%;width: 50%;height: 50%;background-color: white;z-index: 999;padding: 2%">
+  <h3 style="text-align: center">{{isEdit == true?'编辑':'新增'}}</h3>
+  <form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+      <nz-form-label [nzSm]="10" [nzXs]="24" nzFor="equipmentId">设备ID</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="设备ID为自动添加">
+        <input nz-input formControlName="equipmentId" readonly [(ngModel)]="checkedId" id="equipmentId"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired nzFor="equipmentName">设备名称</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="设备名称为必要参数">
+        <input nz-input formControlName="equipmentName" [(ngModel)]="checkedName" id="equipmentName"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired nzFor="equipmentDetail">设备描述</nz-form-label>
+      <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="设备描述为必要参数">
+        <input nz-input formControlName="equipmentDetail" [(ngModel)]="checkedDetail" id="equipmentDetail"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+      <nz-form-control [nzSpan]="4" [nzOffset]="8">
+        <button nz-button nzType="primary" (click)="submitEquipment()">修改</button>
+      </nz-form-control>
+      <nz-form-control [nzSpan]="4" [nzOffset]="1">
+        <button nz-button nzType="default" (click)="onCancelSubmit()">取消</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+

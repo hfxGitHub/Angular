@@ -1,0 +1,68 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <a routerLink="layout" target="_self">
+        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+        <h1>温度湿度监测系统</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="温湿度展示" nzIcon="insert-row-above">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="temperatureShow">温度展示</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="humidityShow">湿度展示</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="数据分析" nzIcon="area-chart">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="temperatureAnal">温度分析</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="humidityAnal">湿度分析</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="设备管理" nzIcon="laptop">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="equipment">设备管理</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="个人中心" nzIcon="user">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a (click)="logout()">注销登录</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout class="right-layout">
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+        </span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

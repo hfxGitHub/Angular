@@ -1,0 +1,61 @@
+<div class="root">
+  <form nz-form [formGroup]="validateForm" *ngIf="login" class="login-form" (ngSubmit)="submitLogin()">
+    <h1 style="display: block;margin: 0 auto 5% auto;color: #cccccc;width: 100%;text-align: center">温湿度监测系统登录</h1>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入用户名">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input formControlName="userName" placeholder="请输入用户名"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入密码">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="password" placeholder="请输入密码"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-row class="login-form-margin">
+      <div nz-col [nzSpan]="20">
+      </div>
+      <div nz-col [nzSpan]="4">
+        <a (click)="ToRegister()">去注册</a>
+      </div>
+    </div>
+    <button nz-button class="login-form-button login-form-margin" [nzLoading]="onSubmit" [nzType]="'primary'">登录
+    </button>
+  </form>
+
+  <form nz-form [formGroup]="validateForm" *ngIf="register" class="login-form" (ngSubmit)="submitRegister()">
+    <h1 style="display: block;margin: 0 auto 5% auto;color: #cccccc;width: 100%;text-align: center">温湿度监测系统注册</h1>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入用户名">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input formControlName="userName" placeholder="请输入用户名"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入密码">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="password" placeholder="请输入密码"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请再次密码">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="password" placeholder="请确认密码"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-row class="login-form-margin">
+      <div nz-col [nzSpan]="20">
+      </div>
+      <div nz-col [nzSpan]="4">
+        <a (click)="ToLogin()">去登录</a>
+      </div>
+    </div>
+    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">注册</button>
+  </form>
+</div>
